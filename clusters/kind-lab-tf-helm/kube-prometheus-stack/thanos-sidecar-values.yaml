@@ -4,3 +4,5 @@ prometheus:
   prometheusSpec:
     thanos:
       image: quay.io/thanos/thanos:v0.42.4
+    externalLabels:
+      cluster: "kind-lab-tf-helm"
