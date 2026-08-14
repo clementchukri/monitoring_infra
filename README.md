@@ -32,4 +32,3 @@ helm upgrade monitoring prometheus-community/kube-prometheus-stack
 ## Notes
 - Sidecar kind-test exposé en NodePort sur 172.18.0.2:30901 (réseau Docker `kind`)
 - Query sur kind-lab-tf-helm interroge les deux Sidecars (DNS discovery local + store statique distant)
-- TODO: ajouter `externalLabels.cluster` sur chaque Prometheus pour distinguer les séries par cluster
