@@ -1,0 +1,8 @@
+grafana:
+  additionalDataSources:
+    - name: Thanos
+      type: prometheus
+      access: proxy
+      url: http://thanos-query-query.monitoring.svc.cluster.local:9090
+      isDefault: false
+      editable: true
