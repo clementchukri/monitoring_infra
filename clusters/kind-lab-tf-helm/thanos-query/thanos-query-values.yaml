@@ -1,0 +1,26 @@
+query:
+  enabled: true
+  dnsDiscovery:
+    enabled: true
+    sidecarsService: "monitoring-kube-prometheus-thanos-discovery"
+    sidecarsNamespace: "monitoring"
+  stores:
+    - "172.18.0.2:30901"
+queryFrontend:
+  enabled: false
+compactor:
+  enabled: false
+storegateway:
+  enabled: false
+ruler:
+  enabled: false
+receive:
+  enabled: false
+bucketweb:
+  enabled: false
+global:
+  imageRegistry: ""
+image:
+  registry: docker.io
+  repository: bitnamilegacy/thanos
+  tag: 0.39.2-debian-12-r2

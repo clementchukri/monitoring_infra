@@ -1,0 +1,4 @@
+*.log
+dry-run-*.yaml
+default-values.yaml
+thanos-default-values.yaml

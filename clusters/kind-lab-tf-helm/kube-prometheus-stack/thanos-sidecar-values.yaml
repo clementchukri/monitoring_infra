@@ -1,0 +1,6 @@
+prometheus:
+  thanosService:
+    enabled: true
+  prometheusSpec:
+    thanos:
+      image: quay.io/thanos/thanos:v0.42.4

@@ -1,0 +1,17 @@
+grafana:
+  enabled: false
+
+alertmanager:
+  enabled: false
+
+prometheus:
+  thanosService:
+    enabled: true
+  prometheusSpec:
+    thanos:
+      image: quay.io/thanos/thanos:v0.42.4
+  thanosServiceExternal:
+    enabled: true
+    type: NodePort
+    nodePort: 30901
+    httpNodePort: 30902
