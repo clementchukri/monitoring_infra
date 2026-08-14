@@ -1,0 +1,30 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: memory-limit-forecast
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: memory-limit-forecast
+      rules:
+        - alert: ContainerMemoryWillExceedLimitIn3Days
+          expr: |
+            (
+              predict_linear(
+                container_memory_working_set_bytes{container!="", container!="POD"}[6h], 3 * 86400
+              )
+              > on(cluster, namespace, pod, container)
+              kube_pod_container_resource_limits{resource="memory"}
+            )
+            and on(cluster, namespace, pod, container)
+            (
+              (time() - container_start_time_seconds{container!="", container!="POD"}) > 3600
+            )
+          for: 30m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Le conteneur {{ $labels.container }} (pod {{ $labels.pod }}, namespace {{ $labels.namespace }}, cluster {{ $labels.cluster }}) va probablement dépasser sa limite mémoire dans ~3 jours"
+            description: "Valeur prédite (predict_linear sur 6h, projection 3 jours) supérieure à la limite mémoire définie pour ce conteneur. Filtré aux conteneurs actifs depuis plus d'1h pour éviter les faux positifs sur des pods éphémères."
